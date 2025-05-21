@@ -1,9 +1,13 @@
+import { Home } from "./Home";
+import './styles.css'
+import './tokens.css'
+
 function App() {
     return (
-        <div>
-            <h1>My cool webpage</h1>
-        </div>
+        <Home />
     );
 }
+
+
 
 export default App;
