@@ -7,9 +7,9 @@ export function HeaderNav(){
             <nav>
                 <h1>STICK_DRIFT</h1>
                 <ul className="page-list">
-                    <li><a href="index.html">HOME</a></li>
-                    <li><a href="forums.html">FORUMS</a></li>
-                    <li><a href="login.html">LOGIN/REGISTER</a></li>
+                    <li><a href="/">HOME</a></li>
+                    <li><a href="/forums">FORUMS</a></li>
+                    <li><a href="/login">LOGIN/REGISTER</a></li>
                 </ul>
             </nav>
         </header>
