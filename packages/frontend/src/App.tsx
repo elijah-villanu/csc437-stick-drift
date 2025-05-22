@@ -1,10 +1,13 @@
-import { Home } from "./Home";
-import './styles.css'
-import './tokens.css'
+import { Route, Routes } from "react-router";
+import { Home } from "./components/Home";
+import { ForumPage } from "./components/ForumPage";
 
 function App() {
     return (
-        <Home />
+        <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/forums" element={<ForumPage />} />
+        </Routes>
     );
 }
 
