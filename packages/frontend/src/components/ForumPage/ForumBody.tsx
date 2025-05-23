@@ -1,35 +1,49 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+// /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ForumItem } from './ForumItem'
 import '../styles.css'
 import '../tokens.css'
 import React from 'react'
-// import { useState } from 'react'
 import { nanoid } from 'nanoid'
+import { ForumModal } from './ForumModal'
+import { AddForumForm } from './AddForumForm'
+import { useState } from 'react'
 
-interface IGameForumItem{
-    id:string,
-    name:string,
-    content:string
+export interface IForumItem {
+    name: string,
+    content: string
 }
 
-interface IGameForumData{
-    data:IGameForumItem[]
+interface IGameForumItem extends IForumItem {
+    id: string,
 }
 
-export function ForumBody(props:IGameForumData) {
-    const [forums,setForums] = React.useState<IGameForumItem[]>(props.data)
+interface IGameForumData {
+    data: IGameForumItem[],
+}
 
-    function addForum(){
+export function ForumBody(props: IGameForumData) {
+    const [forums, setForums] = React.useState<IGameForumItem[]>(props.data)
+    const [forumModal, setForumModal] = useState(false)
+
+    function addForum(item: IForumItem) {
         const newForum = {
-            id:`forum-${nanoid()}`,
-            name:"filler",
-            content:"filler"
+            id: `forum-${nanoid()}`,
+            name: item.name,
+            content: item.content
         }
-        setForums([...forums,newForum])
+        setForums([...forums, newForum])
+    }
+
+
+
+    function handleForumModal() {
+        const currentModal = forumModal
+        //No matter if true or false, do opposite
+        setForumModal(!currentModal)
     }
 
     const initialForumList = forums?.map((f) => (
-        <ForumItem 
+        <ForumItem
             id={f.id}
             key={f.id}
             name={f.name}
@@ -37,13 +51,19 @@ export function ForumBody(props:IGameForumData) {
         />
     ))
 
+
     return (
         <div className="forum-content">
-            <section  className="forum-list">
+            {forumModal ? (
+                <ForumModal modalControl={handleForumModal}>
+                    <AddForumForm submit={addForum} modalControl={handleForumModal}/>
+                </ForumModal>
+            ) : null}
+            <section className="forum-list">
                 {initialForumList}
                 <a className="add-button">
                     <button
-                    onClick={addForum}> + </button>
+                        onClick={handleForumModal}> + </button>
                 </a>
             </section>
         </div>

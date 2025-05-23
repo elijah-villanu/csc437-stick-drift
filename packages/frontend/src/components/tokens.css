@@ -1,6 +1,8 @@
 :root {
     --color-background-header:rgb(27,25,25);
+    --color-overlay:rgb(0,0,0,0.3);
     --color-header-text:rgb(255,255,255);
+    --color-background-modal:rgb(210, 210, 210);
     --color-button: rgb(210, 210, 210);
     --color-body-text: rgb(0,0,0);
 }

@@ -17,11 +17,12 @@ interface IGameForumData{
 
 
 export function ForumPage(props:IGameForumData) {
+    
     return (
         <div className="forum-page-body">
             <HeaderNav />
             <Search />
-            <ForumBody data={props.data}/>
+            <ForumBody data={props.data} />
             <Footer />
         </div>
     )
