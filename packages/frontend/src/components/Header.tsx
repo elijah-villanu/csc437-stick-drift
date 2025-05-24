@@ -1,7 +1,29 @@
+import { useEffect, useRef } from 'react'
 import './styles.css'
 import './tokens.css'
 
-export function HeaderNav(){
+
+export function HeaderNav() {
+    // let [toggle,setToggle] = useState(false)
+    const darkModeRef = useRef<HTMLInputElement>(null);
+    // Checks localStorage on initial load
+    useEffect(() => {
+        const currentMode = localStorage.getItem("darkMode");
+        if (currentMode === "true") {
+            document.body.classList.add("dark-mode")
+            if (darkModeRef.current) darkModeRef.current.checked = true;
+        }
+    }, [])
+    function handleDarkModeToggle() {
+        if (darkModeRef.current) {
+            const isChecked = document.body.classList.toggle("dark-mode")
+            localStorage.setItem("darkMode", String(isChecked))
+
+        }
+
+    }
+
+
     return (
         <header>
             <nav>
@@ -10,6 +32,10 @@ export function HeaderNav(){
                     <li><a href="/">HOME</a></li>
                     <li><a href="/forums">FORUMS</a></li>
                     <li><a href="/login">LOGIN/REGISTER</a></li>
+                    <li><label>
+                        <input type="checkbox" ref={darkModeRef} onChange={handleDarkModeToggle} />
+                        DARK MODE
+                    </label></li>
                 </ul>
             </nav>
         </header>

@@ -14,7 +14,7 @@ export function ForumModal(props: IForumModalProps) {
         const innerModal = innerModalRef.current;
         
         if (innerModal !== null) {
-            // Needs to be node to 
+            // Needs to be node
             const click = event.target as Node;
             if (!innerModal.contains(click)) {
                 //Close Modal if the click is outside

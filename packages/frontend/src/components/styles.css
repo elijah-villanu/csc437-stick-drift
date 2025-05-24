@@ -6,6 +6,18 @@
 img {
   opacity: 60%;
 }
+body {
+  background-color: var(--color-background);
+}
+p {
+  color: var(--color-body-text);
+}
+nav > h1{
+  color:var(--color-header-tags)
+}
+h2{
+  color:var(--color-header-text)
+}
 
 /* GLOBAL FOOTER */
 .footer {
@@ -24,48 +36,41 @@ header {
   color: var(--color-header-text);
   display: flex;
   align-items: center;
+  width: 100%;
 }
-/* nav {
-  display: grid;
-  grid-template-rows: 1fr 3fr;
-  margin: 1rem;
-  gap: 1rem;
-}
-.page-list {
-  display: flex;
-  list-style-type: none;
-  gap: 1rem;
-  flex-direction: column;
-  grid-row-start: 2;
-} */
 nav {
   margin: 1rem;
 }
 .page-list {
   list-style-type: none;
 }
-@media (min-width: 750px) {
+@media (min-width: 820px) {
   nav {
     display: grid;
     grid-template-rows: 1fr;
-    grid-template-columns: 1fr 9fr;
+    grid-template-columns: minmax(0,1fr) minmax(0,7fr);
     align-items: center;
-    margin: 1rem;
+    margin: 1rem; 
+  }
+  nav > *{
+    min-width: 0;
   }
   .page-list {
     display: flex;
     list-style-type: none;
     justify-content: flex-end;
-    gap: 5rem;
+    max-width: 80rem;
+    gap: clamp(0.5rem, 3vw, 5rem);
+    
   }
 }
 h1 {
   font-size: 2rem;
 }
 
-li > a {
+li > a,label {
   text-decoration: none;
-  color: var(--color-header-text);
+  color:var(--color-header-tags);
   font-weight: bold;
   font-size: 1.5rem;
 }
@@ -78,7 +83,7 @@ h2 {
 /* HOME PAGE STYLING */
 .home-page-body {
   display: grid;
-  grid-template-rows: 8rem 2fr 2fr 8rem;
+  grid-template-rows: 10rem 2fr 2fr 8rem;
   font-family: "JetBrains Mono", monospace;
   justify-content: center;
 }
@@ -91,7 +96,7 @@ h2 {
 }
 
 .home-page-body .image-block {
-  background-color: rgb(210, 210, 210);
+  background-color: var(--color-block);
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -101,8 +106,9 @@ h2 {
   font-size: 3rem;
   overflow-wrap: break-word;
   margin-left: 7rem;
+  color: var(--color-body-text);
 }
-@media (min-width: 750px) {
+@media (min-width: 820px) {
   .home-page-body {
     display: grid;
     grid-template-rows: 8rem 3fr 1fr 8rem;
@@ -119,7 +125,7 @@ h2 {
 /* FORUM PAGE STYLING */
 .forum-page-body {
   display: grid;
-  grid-template-rows: 8rem 0.7fr 10fr 8rem;
+  grid-template-rows: 10rem 0.7fr 10fr 8rem;
   font-family: "JetBrains Mono", monospace;
   justify-content: center;
 }
@@ -141,6 +147,7 @@ h2 {
   width: 100%;
   padding: 10px;
   color: var(--color-body-text);
+  background-color: var(--color-textarea);
 }
 .forum-page-body .search-bar-area button {
   border-radius: 8px;
@@ -160,6 +167,7 @@ h2 {
   gap: 2rem;
   max-width: 60rem;
   width: 100%;
+  list-style-type: none;
 }
 .forum-list > a {
   display: inline-block;
@@ -172,6 +180,10 @@ h2 {
   text-align: left;
   width: 100%;
   max-width: 60rem;
+  word-wrap: break-word;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  color: var(--color-body-alternate);
 }
 
 /* FORUM PAGE MODAL */
@@ -220,11 +232,13 @@ h2 {
 .forum-form input {
   grid-column: span 2;
   padding: 1rem;
+  background-color: var(--color-textarea);
 }
 
 .forum-form textarea {
   grid-column: span 2;
   padding: 1rem;
+  background-color: var(--color-textarea);
 }
 
 .forum-form button {
@@ -237,7 +251,7 @@ h2 {
 /* FORUM POST PAGE */
 .forum-post-body {
   display: grid;
-  grid-template-rows: 8rem 17rem 3fr 17rem 8rem;
+  grid-template-rows: 10rem 17rem 3fr 17rem 8rem;
   font-family: "JetBrains Mono", monospace;
 }
 
@@ -249,7 +263,9 @@ h2 {
   width: 100%;
   margin: 1rem auto;
   gap: 0.5rem;
+  color: var(--color-body-text);
 }
+
 .forum-post-body .post-metadata {
   display: flex;
   gap: 2rem;
@@ -260,6 +276,7 @@ h2 {
 }
 .forum-post-body .post-metadata img {
   width: 1rem;
+  fill: var(--color-svgs);
 }
 .forum-post-body hr {
   max-width: 60rem;
@@ -279,7 +296,6 @@ h2 {
 
 .forum-post-body .comment {
   background-color: var(--color-button);
-  color: var(--color-body-text);
   padding: 0.75rem 1.5rem;
   border-radius: 8px;
   max-width: 60rem;
@@ -305,6 +321,7 @@ h2 {
 
 .forum-post-body .comment-user p {
   text-wrap: wrap;
+  color: var(--color-body-alternate);
 }
 
 .forum-post-body .post-comments-container {
@@ -323,6 +340,7 @@ h2 {
   padding: 1rem;
   resize: none;
   margin: 0;
+  background-color: var(--color-textarea);
 }
 .forum-post-body .post-comments-container button {
   grid-row-start: 2;

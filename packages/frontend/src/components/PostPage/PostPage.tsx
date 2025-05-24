@@ -7,6 +7,7 @@ import '../styles.css'
 import '../tokens.css'
 import React from "react";
 import { nanoid } from "nanoid";
+// import { useParams } from "react-router";
 
 
 interface IComment{
@@ -21,6 +22,7 @@ interface IPostPageProps{
 
 export function PostPage(props:IPostPageProps){
     const [comments,setComments] = React.useState<IComment[]>(props.data)
+    // const {forumid} = useParams()
 
     const initialComments = comments?.map((comm) => (
         <CommentsContainer 

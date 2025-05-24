@@ -10,8 +10,8 @@ interface IForumItemProps {
 
 export function ForumItem(props: IForumItemProps) {
     return (
-
-        <a>{props.name}</a>
+        
+        <a href='/forums/temp'>{props.name}</a>
 
     )
 }

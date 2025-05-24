@@ -1,8 +1,29 @@
 :root {
     --color-background-header:rgb(27,25,25);
     --color-overlay:rgb(0,0,0,0.3);
-    --color-header-text:rgb(255,255,255);
+    --color-header-text:rgb(0,0,0);
+    --color-header-tags:rgb(255,255,255);
+    --color-block:rgb(210,210,210);
     --color-background-modal:rgb(210, 210, 210);
+    --color-textarea:rgb(255,255,255);
     --color-button: rgb(210, 210, 210);
     --color-body-text: rgb(0,0,0);
+    --color-body-alternate: rgb(0,0,0);
+    --color-background:rgb(255,255,255);
+    --color-svgs:rgb(0,0,0);
+}
+
+body.dark-mode {
+    --color-background-header:rgb(27,25,25);
+    --color-overlay:rgb(0,0,0,0.3);
+    --color-header-tags:rgb(255,255,255);
+    --color-header-text:rgb(255,255,255);
+    --color-block:rgb(44,44,44);
+    --color-background-modal:rgb(44,44,44);
+    --color-textarea:rgb(190,190,190);
+    --color-button: rgb(210, 210, 210);
+    --color-body-text: rgb(210,210,210);
+    --color-body-alternate: rgb(0,0,0);
+    --color-background: rgb(13,13,13);
+    --color-svgs:rgb(210,210,210);
 }
