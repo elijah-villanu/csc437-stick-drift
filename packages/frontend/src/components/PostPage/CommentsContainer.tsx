@@ -13,7 +13,7 @@ export function CommentsContainer(props: ICommentProps) {
         <section className="comment">
             <div className="comment-user">
                 <div className="comment-user-info">
-                    <img src="/profile.svg" alt="" />
+                    <img src="/profile.svg" alt="" aria-hidden="true"/>
                     <p>{props.profile}</p>
                 </div>
                 <hr />

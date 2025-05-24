@@ -49,7 +49,6 @@ export function PostPage(props:IPostPageProps){
             <HeaderNav />
             <PostHeader />
             <div className="comments-container">
-                <hr />
                 {initialComments}
             </div>
             <PostComments onSubmit={addComment}/>
