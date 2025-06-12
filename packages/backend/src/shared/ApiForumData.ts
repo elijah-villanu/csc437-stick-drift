@@ -1,7 +1,8 @@
 export interface IApiForumData {
-  id?: string;
+  id: string;
   name: string;
   content: string;
+  game: string
   comments: IApiCommentData[]; // Loaded via join/query
 }
 

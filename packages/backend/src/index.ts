@@ -1,8 +1,8 @@
 import express, { Request, Response } from "express";
 import dotenv from "dotenv";
 import { connectMongo } from "./mongoConnect";
-import { FORUMS } from "./shared/ApiForumData";
-import { ForumProvider } from "ForumProvider";
+import { ForumProvider } from "./ForumProvider";
+import { registerForumRoutes } from "./routes/ForumRoutes";
 
 dotenv.config(); // Read the .env file in the current working directory, and load values into process.env.
 const PORT = process.env.PORT || 3000;
@@ -16,15 +16,15 @@ const app = express();
 const forumProvider = new ForumProvider(mongoClient);
 
 app.use(express.static(STATIC_DIR))
+app.use(express.json())
 
 // Forum requests
+registerForumRoutes(app, forumProvider)
+
 app.get("/api/hello", (req: Request, res: Response) => {
     res.send("Hello, World");
 });
 
-app.get("/api/forums",( req:Request, res:Response) => {
-    
-});
 
 
 // Credential Requests
