@@ -8,20 +8,11 @@ import '../tokens.css'
 import React from "react";
 import { nanoid } from "nanoid";
 // import { useParams } from "react-router";
+import type { IApiCommentData } from "../../../../backend/src/shared/ApiForumData";
 
 
-interface IComment{
-    id:string,
-    profile:string,
-    content:string
-}
-
-interface IPostPageProps{
-    data:IComment[]
-}
-
-export function PostPage(props:IPostPageProps){
-    const [comments,setComments] = React.useState<IComment[]>(props.data)
+export function PostPage(){
+    const [comments,setComments] = React.useState<IApiCommentData[]>([])
     // const {forumid} = useParams()
 
     const initialComments = comments?.map((comm) => (

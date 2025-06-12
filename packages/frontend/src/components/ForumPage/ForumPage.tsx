@@ -5,24 +5,13 @@ import { ForumBody } from "./ForumBody";
 import '../styles.css'
 import '../tokens.css'
 
-interface IGameForumItem{
-    id:string,
-    name:string,
-    content:string
-}
-
-interface IGameForumData{
-    data:IGameForumItem[]
-}
-
-
-export function ForumPage(props:IGameForumData) {
+export function ForumPage() {
     
     return (
         <div className="forum-page-body">
             <HeaderNav />
             <Search />
-            <ForumBody data={props.data} />
+            <ForumBody  />
             <Footer />
         </div>
     )

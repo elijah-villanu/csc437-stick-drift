@@ -1,13 +1,15 @@
 import { HeaderNav } from "../Header";
+import { Link } from "react-router";
 import '../styles.css'
 import '../tokens.css'
 
 
-export function LoginPage(){
+
+export function LoginPage(props:{isRegistering:boolean}){
     return (
         <div className="login-page">
             <HeaderNav/>
-            <h1>LOGIN</h1>
+            {props.isRegistering ? <h1>Register Here</h1> : <h1>Login</h1>}
             <form className="login-page-form">
                 <label >Username</label>
                 <input  required={true} name="username" />
@@ -17,6 +19,7 @@ export function LoginPage(){
 
                 <input type="submit" value="Submit" />
             </form>
+            {!props.isRegistering && <Link to={"/register"}>Don't have an account? Register Here!</Link>}
         </div>
     )
 }

@@ -1,5 +1,5 @@
 export interface IApiForumData {
-  id: string;
+  id?: string;
   name: string;
   content: string;
   comments: IApiCommentData[]; // Loaded via join/query
@@ -7,7 +7,6 @@ export interface IApiForumData {
 
 export interface IApiCommentData {
   id: string;
-  forum_id: string;
   profile: string;
   content: string;
 }

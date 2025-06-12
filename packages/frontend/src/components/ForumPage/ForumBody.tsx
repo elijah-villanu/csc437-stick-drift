@@ -1,4 +1,3 @@
-// /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ForumItem } from './ForumItem'
 import '../styles.css'
 import '../tokens.css'
@@ -7,29 +6,22 @@ import { nanoid } from 'nanoid'
 import { ForumModal } from './ForumModal'
 import { AddForumForm } from './AddForumForm'
 import { useState } from 'react'
+import type { IApiForumData } from "../../../../backend/src/shared/ApiForumData";
 
-export interface IForumItem {
-    name: string,
-    content: string
-}
 
-interface IGameForumItem extends IForumItem {
-    id: string,
-}
 
-interface IGameForumData {
-    data: IGameForumItem[],
-}
-
-export function ForumBody(props: IGameForumData) {
-    const [forums, setForums] = React.useState<IGameForumItem[]>(props.data)
+export function ForumBody() {
+    const [forums, setForums] = React.useState<IApiForumData[]>([])
     const [forumModal, setForumModal] = useState(false)
 
-    function addForum(item: IForumItem) {
+    //Use action state
+
+    function addForum(item: IApiForumData) {
         const newForum = {
             id: `forum-${nanoid()}`,
             name: item.name,
-            content: item.content
+            content: item.content,
+            comments: []
         }
         setForums([...forums, newForum])
     }
@@ -42,21 +34,24 @@ export function ForumBody(props: IGameForumData) {
         setForumModal(!currentModal)
     }
 
-    const initialForumList = forums?.map((f) => (
-        <ForumItem
-            id={f.id}
-            key={f.id}
-            name={f.name}
-            content={f.content}
-        />
-    ))
+    const initialForumList = forums?.map((f) =>
+        f.id ? (
+            <ForumItem
+                id={f.id}
+                key={f.id}
+                name={f.name}
+                content={f.content}
+            />
+        ) : null
+    );
+
 
 
     return (
         <div className="forum-content">
             {forumModal ? (
                 <ForumModal modalControl={handleForumModal}>
-                    <AddForumForm submit={addForum} modalControl={handleForumModal}/>
+                    <AddForumForm submit={addForum} modalControl={handleForumModal} />
                 </ForumModal>
             ) : null}
             <section className="forum-list">

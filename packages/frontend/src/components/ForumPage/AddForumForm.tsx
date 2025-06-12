@@ -1,9 +1,11 @@
 import { useState } from "react";
-import type { IForumItem } from "./ForumBody";
+import type { IApiForumData } from "../../../../backend/src/shared/ApiForumData";
+import { nanoid } from "nanoid";
+
 
 // Make sure using the same interface
 interface IAddForumFormProps {
-    submit: (forum: IForumItem) => void;
+    submit: (forum: IApiForumData) => void;
     modalControl:() => void;
 }
 
@@ -24,8 +26,10 @@ export function AddForumForm(props: IAddForumFormProps) {
         event.preventDefault()
         console.log({ title, textbox })
         const newForum = {
+            id:nanoid(),
             name: title,
-            content: textbox
+            content: textbox,
+            comments:[]
         }
         props.submit(newForum)
 
