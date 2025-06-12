@@ -21,6 +21,8 @@ export function ForumBody() {
             id: `forum-${nanoid()}`,
             name: item.name,
             content: item.content,
+            game: item.game,
+            author: item.author,
             comments: []
         }
         setForums([...forums, newForum])

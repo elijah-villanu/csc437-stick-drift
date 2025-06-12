@@ -13,6 +13,7 @@ interface IAddForumFormProps {
 export function AddForumForm(props: IAddForumFormProps) {
     const [textbox, setTextbox] = useState("")
     const [title, setTitle] = useState("")
+    const [game,setGame] = useState("")
 
     function handleTextbox(event: React.ChangeEvent<HTMLTextAreaElement>) {
         const typed = event.target.value;
@@ -22,6 +23,11 @@ export function AddForumForm(props: IAddForumFormProps) {
         const typedTitle = event.target.value;
         setTitle(typedTitle)
     }
+    function handleGameTag(event: React.ChangeEvent<HTMLInputElement>){
+        const gameTyped = event.target.value
+        setGame(gameTyped)
+    }
+
     function handleSubmit(event: React.FormEvent) {
         event.preventDefault()
         console.log({ title, textbox })
@@ -29,6 +35,8 @@ export function AddForumForm(props: IAddForumFormProps) {
             id:nanoid(),
             name: title,
             content: textbox,
+            game:game,
+            author:"temp",
             comments:[]
         }
         props.submit(newForum)
@@ -39,13 +47,14 @@ export function AddForumForm(props: IAddForumFormProps) {
 
     return (
         <form className="forum-form" onSubmit={handleSubmit}>
-            <input type="text" value={title} onChange={handleTitle} />
+            <input type="text" value={title} onChange={handleTitle} placeholder="Forum Title"/>
             <textarea rows={5}
                 cols={40}
                 placeholder="Write here..."
                 onChange={handleTextbox}
                 value={textbox}
             />
+            <input type="game-tag" value={game} onChange={handleGameTag} placeholder="Tagged Game"/>
             <button type="submit">POST</button>
         </form>
     )

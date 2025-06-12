@@ -32,7 +32,7 @@ export function ForumModal(props: IForumModalProps) {
                     <h1>ADD_FORUM</h1>
                     <button className="close-button" onClick={props.modalControl}>CLOSE</button>
                 </header>
-                {/* Pass in children components */}
+                {/* Pass in children components where the form exiss*/}
                 {props.children}
             </div>
         </div>
