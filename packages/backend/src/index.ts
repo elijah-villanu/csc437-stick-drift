@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import dotenv from "dotenv";
-import { connectMongo } from "mongoConnect";
+import { connectMongo } from "./mongoConnect";
+import { FORUMS } from "./shared/ApiForumData";
 
 dotenv.config(); // Read the .env file in the current working directory, and load values into process.env.
 const PORT = process.env.PORT || 3000;
@@ -15,6 +16,10 @@ app.use(express.static(STATIC_DIR))
 
 app.get("/api/hello", (req: Request, res: Response) => {
     res.send("Hello, World");
+});
+
+app.get("/api/forums",( req:Request, res:Response) => {
+    res.send(FORUMS)
 });
 
 app.listen(PORT, () => {

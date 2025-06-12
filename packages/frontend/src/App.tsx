@@ -3,47 +3,27 @@ import { Home } from "./components/Home";
 import { ForumPage } from "./components/ForumPage/ForumPage";
 import { PostPage } from "./components/PostPage/PostPage";
 import { LoginPage } from "./components/LoginRegister/LoginPage";
-
-
-const FORUMS = [
-  {
-    id: "forum-0", name: "The Game is mid.Overhyped. Am I the only one?",
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, se do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure.",
-    comments: [{
-      id: "commid-0",
-      profile: "randomuser",
-      content: "comment Lorem ipsum dolor sit amet, consectetur adipiscing elit, se do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris"
-    }]
-  }, {
-    id: "forum-1", name: "Stuck on the first world. Also my switch runs warm on this game",
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, se do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure.",
-    comments: [{
-      id: "commid-0",
-      profile: "randomuser",
-      content: "comment Lorem ipsum dolor sit amet, consectetur adipiscing elit, se do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris"
-    }]
-  }, {
-    id: "forum-2", name: "audio glitches on the menu. anyone got the same issues?",
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, se do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure.",
-    comments: [{
-      id: "commid-0",
-      profile: "randomuser",
-      content: "comment Lorem ipsum dolor sit amet, consectetur adipiscing elit, se do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris"
-    }]
-  }
-];
-
-
+import type { IApiForumData } from "../../backend/src/shared/ApiForumData"
+import { useState } from "react";
 
 
 function App() {
+  const [forumData,setForumData] = useState<IApiForumData[]>([])
+  const [isFetching,setIsFetching] = useState(true)
+  const [errorOcc,setErrorOcc] = useState(false)
+
+  function forumChangeData(updatedData:IApiForumData[]){
+    setForumData([...updatedData])
+  }
+  console.log(forumData);
+
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/forums" element={<ForumPage data={FORUMS} />} />
-      <Route path="/forums/temp" element={<PostPage data={FORUMS[0].comments} />} />
-      <Route path="/login" element={<LoginPage/>} />
-      <Route path="/register" element={<LoginPage/>} />
+      <Route path="/forums" element={<ForumPage data={forumData} />} />
+      <Route path="/forums/:posts" element={<PostPage data={forumData[0].comments} />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<LoginPage />} />
     </Routes>
   );
 }
