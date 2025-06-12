@@ -1,8 +1,12 @@
+// For both, _id is the mongoDB id, the string id is the id given from 
+// unique react components
+
 export interface IApiForumData {
   id: string;
   name: string;
   content: string;
-  game: string
+  game: string;
+  author:string;
   comments: IApiCommentData[]; // Loaded via join/query
 }
 

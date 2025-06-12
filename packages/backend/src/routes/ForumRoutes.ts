@@ -30,13 +30,14 @@ export function registerForumRoutes(app: express.Application, forumProvider: For
 
     // Add a new forum
     app.post("/api/forums", async (req: Request, res: Response) => {
-    const { id, name, content, game } = req.body;
-    if (!name || !content || !game) {
-        res.status(400).json({ error: "Missing name, content, or game" });
+    const { id, name, content, game, author } = req.body;
+    // TS complains because each field can be string or null
+    if (!id || !name || !content || !game || !author) {
+        res.status(400).json({ error: "Missing id, name, content, game, or author" });
         return;
     }
     try {
-        const forum = await forumProvider.addForum({ id, name, content, game });
+        const forum = await forumProvider.addForum({ id, name, content, game, author });
         res.status(201).json(forum);
     } catch (err) {
         res.status(500).json({ error: "Could not add forum" });
@@ -44,24 +45,25 @@ export function registerForumRoutes(app: express.Application, forumProvider: For
 });
 
 
-    // // POST comment to a forum
-    // app.post("/api/forums/:id/comments", express.json(), async (req: Request, res: Response) => {
-    //     const { profile, content } = req.body;
-    //     if (!profile || !content) {
-    //         res.status(400).json({ error: "Missing profile or content" });
-    //         return
-    //     }
-    //     try {
-    //         const comment = await forumProvider.addComment(req.params.id, { profile, content });
-    //         if (!comment) {
-    //             res.status(404).json({ error: "Forum not found" });
-    //             return
-    //         }
-    //         res.status(201).json(comment);
-    //     } catch (err) {
-    //         res.status(400).json({ error: "Invalid forum id" });
-    //     }
-    // });
+
+    // POST comment to a forum
+    app.post("/api/forums/:id/comments", express.json(), async (req: Request, res: Response) => {
+        const { id, profile, content } = req.body;
+        if (!profile || !content || !id) {
+            res.status(400).json({ error: "Missing profile,id, or content" });
+            return
+        }
+        try {
+            const comment = await forumProvider.addComment(req.params.id, { id,profile, content });
+            if (!comment) {
+                res.status(404).json({ error: "Forum not found" });
+                return
+            }
+            res.status(201).json(comment);
+        } catch (err) {
+            res.status(400).json({ error: "Invalid forum id" });
+        }
+    });
 
 
 }

@@ -6,10 +6,11 @@ interface IForumDocument {
     name: string;
     content: string;
     game: string
+    author: string
     comments: IComment[]
 }
 interface IComment {
-    id: ObjectId;
+    id: string;
     profile: string;
     content: string
 }
@@ -32,31 +33,32 @@ export class ForumProvider {
 
     getForumById(id: string) {
         try {
-            const objectId = new ObjectId(id);
-            return this.collection.findOne({ _id: objectId });
+            // Using custom id (non Mongo)
+            return this.collection.findOne({ id: id });
         } catch (err) {
             // If the id is not a valid ObjectId, return null or handle error as needed
             return Promise.resolve(null);
         }
     }
 
-    async addForum({ id, name, content, game }: { id: string, name: string, content: string, game: string }) {
-    const result = await this.collection.insertOne({
-        id,
-        name,
-        content,
-        comments: [],
-        game
-    });
-    return this.collection.findOne({ _id: result.insertedId });
-}
+    async addForum({ id, name, content, game, author }: { id: string; name: string; content: string; game: string; author: string }) {
+        const result = await this.collection.insertOne({
+            id,
+            name,
+            content,
+            comments: [],
+            game,
+            author
+        });
+        return this.collection.findOne({ _id: result.insertedId });
+    }
 
 
-    async addComment(forumId: string, comment: Omit<IComment, "_id">) {
+    async addComment(forumId: string, comment: IComment) {
         try {
             const newComment = { ...comment, _id: new ObjectId() };
             const result = await this.collection.updateOne(
-                { _id: new ObjectId(forumId) },
+                { id: forumId },
                 { $push: { comments: newComment } }
             );
             if (result.matchedCount === 0) {
@@ -64,7 +66,7 @@ export class ForumProvider {
             }
             return newComment;
         } catch (err) {
-            return null; // Invalid ObjectId, etc.
+            return null; 
         }
     }
 

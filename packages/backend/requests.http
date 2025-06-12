@@ -1,2 +1,33 @@
+### Create a new forum
+POST http://localhost:3000/api/forums
+Content-Type: application/json
+
+{
+  "id": "forum-123",
+  "name": "Trouble beating Level 2",
+  "content": "Anyone else stuck on the water boss?",
+  "game": "super-mario-bros",
+  "author": "player_one"
+}
+
+###
+
 ### Get all forums
 GET http://localhost:3000/api/forums
+
+###
+
+### Get a forum by id
+GET http://localhost:3000/api/forums/forum-123
+
+###
+
+### Add a comment to a forum
+POST http://localhost:3000/api/forums/forum-123/comments
+Content-Type: application/json
+
+{
+  "id": "commid-001",
+  "profile": "gamer42",
+  "content": "I had to look up a guide for this part."
+}
