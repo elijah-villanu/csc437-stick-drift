@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { Link } from 'react-router';
 import './styles.css'
 import './tokens.css'
 
@@ -29,9 +30,9 @@ export function HeaderNav() {
             <nav>
                 <h1>STICK_DRIFT</h1>
                 <ul className="page-list">
-                    <li><a href="/">HOME</a></li>
-                    <li><a href="/forums">FORUMS</a></li>
-                    <li><a href="/login">LOGIN/REGISTER</a></li>
+                    <li><Link to="/">HOME</Link></li>
+                    <li><Link to="/forums">FORUMS</Link></li>
+                    <li><Link to="/login">LOGIN/REGISTER</Link></li>
                     <li><label>
                         <input type="checkbox" ref={darkModeRef} onChange={handleDarkModeToggle} />
                         DARK MODE

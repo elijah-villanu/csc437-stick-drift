@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router";
 import { Home } from "./components/Home";
 import { ForumPage } from "./components/ForumPage/ForumPage";
 import { PostPage } from "./components/PostPage/PostPage";
+import { LoginPage } from "./components/LoginRegister/LoginPage";
 
 
 const FORUMS = [
@@ -41,6 +42,8 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/forums" element={<ForumPage data={FORUMS} />} />
       <Route path="/forums/temp" element={<PostPage data={FORUMS[0].comments} />} />
+      <Route path="/login" element={<LoginPage/>} />
+      <Route path="/register" element={<LoginPage/>} />
     </Routes>
   );
 }

@@ -1,5 +1,6 @@
 import '../styles.css'
 import '../tokens.css'
+import{Link} from 'react-router'
 
 interface IForumItemProps {
     id: string;
@@ -11,7 +12,7 @@ interface IForumItemProps {
 export function ForumItem(props: IForumItemProps) {
     return (
         
-        <a href='/forums/temp'>{props.name}</a>
+        <Link to='/forums/temp'>{props.name}</Link>
 
     )
 }
