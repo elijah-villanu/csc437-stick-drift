@@ -11,7 +11,7 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/forums" element={<ForumPage />} />
       <Route
-        path="/forums/:posts"
+        path="/forums/:id"
         element={<PostPage />}
       />
       <Route path="/login" element={<LoginPage isRegistering={false} />} />

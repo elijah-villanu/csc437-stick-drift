@@ -15,15 +15,15 @@ export function Search(props:ISearchProps) {
         setSearchText(typed)
     }
 
-    function handleSubmit(){
-        event?.preventDefault()
-        console.log(searchText)
+    function handleSubmit(e:React.FormEvent<HTMLFormElement>){
+        // Prevent form default behavior of redirection
+        e.preventDefault()
         props.search(searchText)
     }
 
     return (
         <section className="search-bar-area-container">
-                <form className='search-bar-area' action={handleSubmit}>
+                <form className='search-bar-area' onSubmit={handleSubmit}>
                     <label htmlFor={searchBarId}></label>
                     <input id={searchBarId} type="search" placeholder="Search By Game Tag" 
                     onChange={handleSearchText}/>

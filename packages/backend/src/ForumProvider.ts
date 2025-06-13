@@ -36,7 +36,6 @@ export class ForumProvider {
             // Using custom id (non Mongo)
             return this.collection.findOne({ id: id });
         } catch (err) {
-            // If the id is not a valid ObjectId, return null or handle error as needed
             return Promise.resolve(null);
         }
     }
@@ -57,6 +56,8 @@ export class ForumProvider {
     async addComment(forumId: string, comment: IComment) {
         try {
             const newComment = { ...comment, _id: new ObjectId() };
+
+            // Push needs to be nested since comments are not normalized
             const result = await this.collection.updateOne(
                 { id: forumId },
                 { $push: { comments: newComment } }
@@ -66,9 +67,23 @@ export class ForumProvider {
             }
             return newComment;
         } catch (err) {
-            return null; 
+            return null;
         }
     }
+
+    async searchByGame(game: string) {
+        //Using regex with i option to ignore case for search
+        try {
+            const forums = await this.collection.find({
+                game: { $regex: game, $options: "i" }
+            }).toArray();
+
+            return forums;
+        } catch (err) {
+            return null;
+        }
+    }
+
 
 
 }

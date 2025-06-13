@@ -7,12 +7,12 @@ import { AddForumForm } from './AddForumForm'
 import { useState } from 'react'
 import type { IApiForumData } from "../../../../backend/src/shared/ApiForumData";
 
-interface IForumBodyProps{
-    addForum:(item:IApiForumData) => void;
+interface IForumBodyProps {
+    addForum: (item: IApiForumData) => void;
     data: IApiForumData[];
 }
 
-export function ForumBody(props:IForumBodyProps) {
+export function ForumBody(props: IForumBodyProps) {
     const [forumModal, setForumModal] = useState(false)
 
     function handleForumModal() {
@@ -20,19 +20,22 @@ export function ForumBody(props:IForumBodyProps) {
         //No matter if true or false, do opposite
         setForumModal(!currentModal)
     }
+    let initialForumList;
 
-    const initialForumList = props.data?.map((f) =>
-        f.id ? (
-            <ForumItem
-                id={f.id}
-                key={f.id}
-                name={f.name}
-                content={f.content}
-                game={f.game}
-                author={f.author}
-            />
-        ) : null
-    );
+    if (props.data) {
+        initialForumList = props.data?.map((f) =>
+            f.id ? (
+                <ForumItem
+                    id={f.id}
+                    key={f.id}
+                    name={f.name}
+                    content={f.content}
+                    game={f.game}
+                    author={f.author}
+                />
+            ) : null
+        );
+    }
 
 
 
@@ -44,7 +47,7 @@ export function ForumBody(props:IForumBodyProps) {
                 </ForumModal>
             ) : null}
             <section className="forum-list">
-                {initialForumList}
+                {props.data && initialForumList}
                 <a className="add-button">
                     <button
                         onClick={handleForumModal}> + </button>

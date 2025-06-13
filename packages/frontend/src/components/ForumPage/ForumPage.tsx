@@ -5,7 +5,7 @@ import { ForumBody } from "./ForumBody";
 import '../styles.css'
 import '../tokens.css'
 import type { IApiForumData } from "../../../../backend/src/shared/ApiForumData";
-import React, { useRef,useEffect } from 'react'
+import React, { useRef, useEffect } from 'react'
 import { nanoid } from 'nanoid'
 
 
@@ -15,22 +15,53 @@ export function ForumPage() {
     // const [errorOcc, setErrorOcc] = useState(false);
     const ref = useRef(0);
 
-    function handleAddForum(item: IApiForumData) {
+    async function handleAddForum(item: IApiForumData) {
         const newForum = {
-            id: `forum-${nanoid()}`,
+            id: `forum${nanoid()}`,
             name: item.name,
             content: item.content,
             game: item.game,
             author: item.author,
             comments: []
         }
+        const response = await fetch("/api/forums", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newForum)
+        });
+        if (!response) {
+            console.log("error")
+            return
+        }
+        //Only set state if response was successful
         setForums([...forums, newForum])
     }
 
-    function handleSearch(query: string) {
-        //Send request with query params
-        console.log(query)
+    async function handleSearch(query: string) {
+        const params = new URLSearchParams();
+
+        // If search box is empty, just fetch all forums
+        if (query === "") {
+            getAllForumsRequest();
+            return;
+        } else {
+            // Request to get all forums based on the game tag
+            params.append("q",query)
+            const response = await fetch(`/api/forums/search?${params}`);
+            if(response.status >= 400){
+                console.log("error fetching searched games")
+            }
+
+            const parsed = await response.json();
+            if(parsed){
+                setForums(parsed)
+                return;
+            }
+        }
     }
+
 
     async function getAllForumsRequest() {
         ref.current = ref.current + 1;
@@ -43,7 +74,7 @@ export function ForumPage() {
             // setIsFetching(true)
             const response = await fetch('/api/forums', {
                 method: "GET"
-                // headers: { "Authorization": `Bearer ${token}` }
+                // headers: { "Authorization": `Bearer ${ token }` }
             });
 
             // Check for subsequent requests
