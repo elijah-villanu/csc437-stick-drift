@@ -14,7 +14,7 @@ export function AddForumForm(props: IAddForumFormProps) {
     const [textbox, setTextbox] = useState("")
     const [title, setTitle] = useState("")
     const [game,setGame] = useState("")
-
+    
     function handleTextbox(event: React.ChangeEvent<HTMLTextAreaElement>) {
         const typed = event.target.value;
         setTextbox(typed)
