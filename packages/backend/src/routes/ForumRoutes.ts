@@ -4,6 +4,22 @@ import { ForumProvider } from "../ForumProvider"
 
 export function registerForumRoutes(app: express.Application, forumProvider: ForumProvider) {
 
+    
+    // GET forum found when searching by game (as query param)
+    app.get("/api/forums/search", async (req, res) => {
+        const { game } = req.query;
+        if (!game || typeof game !== "string") {
+            res.status(400).json({ error: "Missing or invalid game parameter" });
+            return;
+        }
+        try {
+            const forums = await forumProvider.searchByGame(game);
+            res.status(200).json(forums);
+        } catch (err) {
+            res.status(500).json({ error: "Internal Server Error" });
+        }
+    });
+
     // Get all Forums
     app.get("/api/forums", async (req: express.Request, res: express.Response) => {
         try {
@@ -64,21 +80,5 @@ export function registerForumRoutes(app: express.Application, forumProvider: For
             res.status(400).json({ error: "Invalid forum id" });
         }
     });
-
-    // GET forum found when searching by game (as query param)
-    app.get("/api/forums/search?", async (req, res) => {
-        const { game } = req.query;
-        if (!game || typeof game !== "string") {
-            res.status(400).json({ error: "Missing or invalid game parameter" });
-            return;
-        }
-        try {
-            const forums = await forumProvider.searchByGame(game);
-            res.status(200).json(forums);
-        } catch (err) {
-            res.status(500).json({ error: "Internal Server Error" });
-        }
-    });
-
 
 }

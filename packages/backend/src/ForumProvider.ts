@@ -77,7 +77,6 @@ export class ForumProvider {
             const forums = await this.collection.find({
                 game: { $regex: game, $options: "i" }
             }).toArray();
-
             return forums;
         } catch (err) {
             return null;

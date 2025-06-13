@@ -48,7 +48,7 @@ export function ForumPage() {
             return;
         } else {
             // Request to get all forums based on the game tag
-            params.append("q",query)
+            params.append("game",query)
             const response = await fetch(`/api/forums/search?${params}`);
             if(response.status >= 400){
                 console.log("error fetching searched games")

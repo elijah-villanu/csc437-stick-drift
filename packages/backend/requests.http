@@ -31,3 +31,19 @@ Content-Type: application/json
   "profile": "gamer42",
   "content": "I had to look up a guide for this part."
 }
+
+### Search forums with the game containing 'mario' (case-insensitive substring match)
+GET http://localhost:3000/api/forums/search?game=mario
+
+###
+
+### Search forums with the game containing 'portal 2' (with a space)
+GET http://localhost:3000/api/forums/search?game=portal%202
+
+###
+
+### Search forums with the game containing 'kart' (should match e.g. Mario Kart)
+GET http://localhost:3000/api/forums/search?game=kart
+
+###
+
