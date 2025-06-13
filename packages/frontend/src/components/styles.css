@@ -377,3 +377,7 @@ h2 {
   color: var(--color-body-text);
 }
 
+.login-page-form > input{
+  color: var(--color-body-alternate);
+}
+

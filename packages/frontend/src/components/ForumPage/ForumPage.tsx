@@ -9,7 +9,7 @@ import React, { useRef, useEffect } from 'react'
 import { nanoid } from 'nanoid'
 
 
-export function ForumPage() {
+export function ForumPage(props:{authToken:string}) {
     const [forums, setForums] = React.useState<IApiForumData[]>([])
     // const [isFetching, setIsFetching] = useState(true);
     // const [errorOcc, setErrorOcc] = useState(false);
@@ -27,7 +27,8 @@ export function ForumPage() {
         const response = await fetch("/api/forums", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${props.authToken}`
             },
             body: JSON.stringify(newForum)
         });
@@ -49,7 +50,10 @@ export function ForumPage() {
         } else {
             // Request to get all forums based on the game tag
             params.append("game",query)
-            const response = await fetch(`/api/forums/search?${params}`);
+            const response = await fetch(`/api/forums/search?${params}`,{
+                method:"GET",
+                headers:{"Authorization": `Bearer ${ props.authToken }`}
+            });
             if(response.status >= 400){
                 console.log("error fetching searched games")
             }
@@ -73,8 +77,8 @@ export function ForumPage() {
         try {
             // setIsFetching(true)
             const response = await fetch('/api/forums', {
-                method: "GET"
-                // headers: { "Authorization": `Bearer ${ token }` }
+                method: "GET",
+                headers: { "Authorization": `Bearer ${ props.authToken }` }
             });
 
             // Check for subsequent requests

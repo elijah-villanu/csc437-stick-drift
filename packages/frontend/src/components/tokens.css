@@ -11,6 +11,7 @@
     --color-body-alternate: rgb(0,0,0);
     --color-background:rgb(255,255,255);
     --color-svgs:rgb(0,0,0);
+    --color-header-error:red;
 }
 
 body.dark-mode {
@@ -26,4 +27,5 @@ body.dark-mode {
     --color-body-alternate: rgb(0,0,0);
     --color-background: rgb(13,13,13);
     --color-svgs:rgb(210,210,210);
+    --color-header-error:red;
 }

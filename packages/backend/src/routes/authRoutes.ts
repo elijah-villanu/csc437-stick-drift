@@ -36,6 +36,7 @@ export function registerAuthRoutes(app: express.Application, credProvider: CredP
                 // result returns true if found and created, false if user already exists
                 if (result) {
                     const token = await generateAuthToken(data.username,req.app.locals.JWT_SECRET)
+                    // return token if user successfully created
                     res.status(201).send(token)
                 } else {
                     res.status(409).send("Username already taken")

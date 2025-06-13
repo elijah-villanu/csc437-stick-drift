@@ -3,20 +3,37 @@ import { Home } from "./components/Home";
 import { ForumPage } from "./components/ForumPage/ForumPage";
 import { PostPage } from "./components/PostPage/PostPage";
 import { LoginPage } from "./components/LoginRegister/LoginPage";
+import { useState } from "react";
+import { ProtectedRoute } from "./ProtectedRoutes";
 
 function App() {
+  const [token, setToken] = useState("")
+
+  function handleToken(newToken: string) {
+    setToken(newToken)
+  }
+
 
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/forums" element={<ForumPage />} />
+
+      <Route path="/forums" 
+        element={<ProtectedRoute authToken={token}>
+          <ForumPage authToken={token}/>
+        </ProtectedRoute>} 
+      />
+
       <Route
         path="/forums/:id"
-        element={<PostPage />}
+        element={<ProtectedRoute authToken={token}>
+          <PostPage authToken={token}/>
+        </ProtectedRoute>}
       />
-      <Route path="/login" element={<LoginPage isRegistering={false} />} />
-      <Route path="/register" element={<LoginPage isRegistering={true} />} />
-    </Routes>
+
+      <Route path="/login" element={<LoginPage isRegistering={false} addToken={handleToken} />} />
+      <Route path="/register" element={<LoginPage isRegistering={true} addToken={handleToken} />} />
+    </Routes >
   );
 }
 

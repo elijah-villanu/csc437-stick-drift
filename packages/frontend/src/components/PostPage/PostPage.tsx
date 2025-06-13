@@ -12,7 +12,7 @@ import { useParams } from "react-router";
 import { type IApiForumData, type IApiCommentData } from "../../../../backend/src/shared/ApiForumData";
 
 
-export function PostPage() {
+export function PostPage(props: { authToken: string }) {
     const [comments, setComments] = React.useState<IApiCommentData[]>([])
     const [forumData, setForumData] = React.useState<IApiForumData>()
     const { id } = useParams()
@@ -27,9 +27,12 @@ export function PostPage() {
     ));
 
     async function getForumById() {
-        const response = await fetch(`/api/forums/${id}`);
+        const response = await fetch(`/api/forums/${id}`, {
+            method: "GET",
+            headers: { "Authorization": `Bearer ${props.authToken}` }
+        });
         if (!response.ok) {
-            return null; 
+            return null;
         }
         const data = await response.json();
 
@@ -53,7 +56,8 @@ export function PostPage() {
         const response = await fetch(`/api/forums/${id}/comments`, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${ props.authToken }`
             },
             body: JSON.stringify(newComment as IApiCommentData)
         });
