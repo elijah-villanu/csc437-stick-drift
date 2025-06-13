@@ -19,6 +19,8 @@ export function Search(props:ISearchProps) {
         // Prevent form default behavior of redirection
         e.preventDefault()
         props.search(searchText)
+        // reset search state
+        setSearchText("")
     }
 
     return (

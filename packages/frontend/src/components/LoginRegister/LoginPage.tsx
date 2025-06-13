@@ -74,7 +74,7 @@ export function LoginPage(props: ILoginPageProps) {
         <div className="login-page">
             <HeaderNav />
             <form className="login-page-form" action={submitAction}>
-                {props.isRegistering ? <h1>Register Here</h1> : <h1>Login</h1>}
+                {props.isRegistering ? <h1>Register</h1> : <h1>Login</h1>}
                 <label htmlFor={usernameInputId}>Username</label>
                 <input id={usernameInputId} required={true} name="username" disabled={isPending} />
 
